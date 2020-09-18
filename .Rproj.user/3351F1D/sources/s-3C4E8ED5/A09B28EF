@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1600177316664.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A09B28EF",
+    "lastKnownWriteTime" : 2318265438588531822,
+    "last_content_update" : 1600177316664,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "20D20D8",
+        "caption" : "interactions",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=interactions&cache_key=20D20D8",
+        "displayedObservations" : "342756",
+        "environment" : "",
+        "expression" : "interactions",
+        "object" : "interactions",
+        "preview" : "0",
+        "totalObservations" : "342756",
+        "variables" : "40"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

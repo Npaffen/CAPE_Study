@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1600177745768.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "148047FB",
+    "lastKnownWriteTime" : 7957688328213717356,
+    "last_content_update" : 1600177745768,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B1CAD971",
+        "caption" : "inter_q",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=inter_q&cache_key=B1CAD971",
+        "displayedObservations" : "7679",
+        "environment" : "",
+        "expression" : "inter_q",
+        "object" : "inter_q",
+        "preview" : "0",
+        "totalObservations" : "7679",
+        "variables" : "10"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 14,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -42,7 +42,7 @@ f_ols_residuals <- function(dataset, gender_sub, treat  ) {
 ######################################################################################################################################################################################
 
 #Generate estimation formulas for the different stages
-f_lasso_cov <- function(controls, Y=0, Z=0, IV, stage = 0 , tau, ability_g_tau = 0, luck_g_tau = 0, key_param_g_tau = 0){
+f_lasso_cov <- function(controls, Y=0, Z=0, IV, stage = 0 , tau, ability_g_tau = 0, luck_g_tau = 0, beta_tau = 0){
 if(IV == F){ #formula for quantile effects when education is treated as exogenpus
   rq1 = LASSO.fit(Y, controls , tau = tau, intercept = T, lambda = 1, coef.cutoff=1e-08)
   X_Lasso <-  controls %>% .[,rq1[2:length(rq1)]!=0] %>% as_tibble() %>% names
@@ -58,17 +58,31 @@ formula <- as.formula(str_c('log_hourly_earnings ~ 1 + edu_years',str_c(X_Lasso,
   }else if(IV == T && stage == 2){ #formula to obtain residuals for distribution of luck u
   rq1 = LASSO.fit(Y, controls , tau = tau, intercept = T, lambda = 1, coef.cutoff=1e-08)
   X_Lasso <-  controls %>% .[,rq1[2:length(rq1)]!=0] %>% as_tibble() %>% names
-  if(ability_g_tau %in% X_lasso){X_Lasso <- gsub(pattern = ability_g_tau, replacement = '') } #make sure that specific variables do not appear in X_Lasso
-  formula <- as.formula(str_c('log_hourly_earnings ~ 1', ability_g_tau,'+',ability_g_tau,':edu_years +',
+  if(ability_g_tau %in% X_Lasso){X_Lasso <- gsub(pattern = ability_g_tau, replacement = '') } #make sure that specific variables do not appear in X_Lasso
+  if('edu_years' %in% X_Lasso){X_Lasso <- gsub(pattern = 'edu_years', replacement = '') } #make sure that specific variables do not appear in X_Lasso
+  
+  formula <- as.formula(str_c('log_hourly_earnings ~ 1+ edu_years',str_c(ability_g_tau,':edu_years'),
                               str_c(X_Lasso, collapse = '+'), sep = '+') %>% gsub(pattern = '\\+\\+', replacement = '+'))
   
   
   }else if(IV == T && stage == 3){ #formula to get effect of key parameter
   rq1 = LASSO.fit(Y, IV_dataset , tau = tau, intercept = T, lambda = 1, coef.cutoff=1e-08)
-  X_Lasso <-  controls %>% .[,rq1[2:length(rq1)]!=0] %>% as_tibble() %>% names
-  if( str_c(key_param_g_tau, ability_g_tau, luck_g_tau, sep = '|') %in% X_lasso){X_Lasso <- gsub(pattern = str_c(key_param_g_tau ,ability_g_tau, luck_g_tau, sep = '|'), replacement = '') }
-  formula <- as.formula(str_c('log_hourly_earnings ~ 1 +' ,ability_g_tau, ':', key_param_g_tau, ability_g_tau + luck_g_tau  ,
-                              str_c(X_Lasso, collapse = '+'), sep = '+') %>% gsub(pattern = '\\+\\+', replacement = '+'))
+  X_Lasso_earn <-  IV_dataset %>% .[,rq1[2:length(rq1)]!=0] %>% as_tibble() %>% names
+  rq2 = LASSO.fit(Z, controls , tau = tau, intercept = T, lambda = 1, coef.cutoff=1e-08)
+  X_Lasso_school <-  controls %>% .[,rq2[2:length(rq2)]!=0] %>% as_tibble() %>% names
+  if( str_c(beta_tau, ability_g_tau, luck_g_tau, sep = '|') %in% X_Lasso_earn){X_Lasso_earn <- gsub(pattern = str_c(beta_tau ,ability_g_tau, luck_g_tau, sep = '|'), replacement = '') }
+  if( str_c(beta_tau, ability_g_tau, luck_g_tau, sep = '|') %in% X_Lasso_school){X_Lasso_school <- gsub(pattern = str_c(beta_tau ,ability_g_tau, luck_g_tau, sep = '|'), replacement = '') }
+  formula <- as.formula(str_c('log_hourly_earnings ~ 1', 
+                              str_c('rq(edu_years ~ ycomp','+', ability_g_tau,
+                                    str_c(X_Lasso_school, collapse = '+'),
+                                    ',data = dataset, method =',str_c('"sfn"'),')$fitted.values:',key_param),
+                              str_c(X_Lasso_earn, collapse = '+'),
+                              ability_g_tau,
+                              luck_g_tau,
+                               sep = '+') %>% gsub(pattern = '\\+\\+', replacement = '+'))
+  #The latter generates a formular object for the simultaneous estimate of 
+  #selected quantiles ln(w) conditional on Q_s(tau_a|X,z), X and Z as in the hybrid
+  #model in (8)
   
   }
   return(formula)
@@ -80,16 +94,28 @@ formula <- as.formula(str_c('log_hourly_earnings ~ 1 + edu_years',str_c(X_Lasso,
 
 
 #Quantile regression of the different stages
-f_rq_results <- function(dataset, tau, IV = F, stage = 0, ability_g_tau = 0, luck_g_tau = 0, key_param_g_tau = 0 ){
+f_rq_results <- function(dataset, tau, IV = F, stage = 0, ability_g_tau = 0, luck_g_tau = 0, beta_tau = 0 ){
   #split dataset into, controls, and Y
   if(IV == T){
     Y <- dataset %>% .$log_hourly_earnings %>% as.matrix()
     Z <- dataset %>% .$ycomp %>% as.matrix()
     controls <- dataset %>% select(-log_hourly_earnings, -ycomp) %>% as.matrix()
+  } else if(IV == T && stage == 3){
+    
+    Y <- dataset %>% .$log_hourly_earnings %>% as.matrix()
+    specific_quantile <- dataset %>% select(matches(ability_g_tau),matches(luck_g_tau),ycomp, matches(beta)) %>%
+      mutate(ability_g_tau = (ability_g_tau)^-1)
+    controls <- dataset %>% select(-log_hourly_earnings,-edu_years) %>%
+      select(-matches('ability|luck|beta')) %>%
+      inner_join(specific_quantile) %>%
+      as.matrix()
+    Z <- controls 
+    
   } else{
     Y <- dataset %>% .$edu_years %>% as.matrix()
     controls <- dataset %>% select(-log_hourly_earnings,-edu_years) %>% as.matrix()
   }
+  
   if(IV == F && stage == 0){
   # for quantile effects when education is treated as exogenous
   formula <- f_lasso_cov(controls = controls,IV = IV, stage = stage , Y = Y, tau = tau)
@@ -102,19 +128,19 @@ f_rq_results <- function(dataset, tau, IV = F, stage = 0, ability_g_tau = 0, luc
   
   #obtain residuals for distribution of luck u
   }else if(IV == T && stage == 2){
-    if("ability" %in% colnames(dataset)){
-    formula <- f_lasso_cov(controls = controls,IV = IV, stage = stage , Y = Y, tau = tau)
+    if(ability_g_tau %in% colnames(dataset)){
+    formula <- f_lasso_cov(controls = controls,IV = IV, stage = stage , Y = Y, tau = tau, ability_g_tau = ability_g_tau)
     fit <- rq(formula, tau = tau, method = 'sfn', data = dataset)
     
    
     }else {stop('Ability is not defined in the dataset!')}
     #get effect of key parameter
   }else if(IV == T && stage == 3){
-    if(key_param_g_tau %in% colnames(dataset) &&  ability_g_tau %in% colnames(dataset) && luck_g_tau %in% colnames(dataset)){
-      formula <- f_lasso_cov(controls = controls,IV = IV, stage = stage , Y = Y, tau = tau, ability_g_tau = ability_g_tau, luck_g_tau = luck_g_tau, key_param_g_tau = key_param_g_tau)
+    if(beta %in% colnames(dataset) &&  ability_g_tau %in% colnames(dataset) && luck_g_tau %in% colnames(dataset)){
+      formula <- f_lasso_cov(controls = controls,IV = IV, stage = stage , Y = Y, tau = tau, ability_g_tau = ability_g_tau, luck_g_tau = luck_g_tau, beta_tau = beta_tau)
       fit <- rq(formula, tau = tau, method = 'sfn', data = dataset)
       
-    }else {stop('Either ability_cdf, luck_cdf or key_param of the specified tau(s) is/are not defined in the dataset!')}
+    }else {stop(str_c('Either', ability_g_tau, luck_g_tau,' or ',beta_tau,' of the specified tau(s) is/are not defined in the dataset!'))}
   }
   return(fit)
   }

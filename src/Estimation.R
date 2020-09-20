@@ -2,6 +2,7 @@ library(quantreg)
 library(tidyverse)
 library(pracma)
 library(rqPen)
+
 data(engel)
 xx <- engel$income - mean(engel$income)
 fit1 <- summary(rq(foodexp~xx,tau=2:98/100, data = engel)) 
@@ -52,27 +53,27 @@ set.seed(1337) #Seed for CDF
 ##############################male##############################
 qr_fs_male_t01 <- f_rq_results(dataset = dataset_male, tau = 0.1, stage = 1, IV = T) #tau = 0.1
 ability_male_t01 = dataset_male$edu_years - qr_fs_male_t01$fitted.values
-dataset_male <- dataset_male  %>% mutate(ability_t01 = ability_male)
+dataset_male <- dataset_male  %>% mutate(ability_t01 = ability_male_t01)
 
 
 qr_fs_male_t03 <- f_rq_results(dataset = dataset_male, tau = 0.3, stage = 1, IV = T) #tau = 0.3
 ability_male_t03 = dataset_male$edu_years - qr_fs_male_t03$fitted.values
-dataset_male <- dataset_male  %>% mutate(ability_t03 = ability_male)
+dataset_male <- dataset_male  %>% mutate(ability_t03 = ability_male_t03)
 
 
 qr_fs_male_t05 <- f_rq_results(dataset = dataset_male, tau = 0.5, stage = 1, IV = T) #tau = 0.5
 ability_male_t05 = dataset_male$edu_years - qr_fs_male_t05$fitted.values
-dataset_male <- dataset_male  %>% mutate(ability_t05 = ability_male)
+dataset_male <- dataset_male  %>% mutate(ability_t05 = ability_male_t05)
 
 
 qr_fs_male_t07 <- f_rq_results(dataset = dataset_male, tau = 0.7, stage = 1, IV = T) #tau = 0.7
 ability_male_t07 = dataset_male$edu_years - qr_fs_male_t07$fitted.values
-dataset_male <- dataset_male  %>% mutate(ability_t07 = ability_male)
+dataset_male <- dataset_male  %>% mutate(ability_t07 = ability_male_t07)
 
 
 qr_fs_male_t09 <- f_rq_results(dataset = dataset_male, tau = 0.9, stage = 1, IV = T) #tau = 0.9
 ability_male_t09 = dataset_male$edu_years - qr_fs_male_t09$fitted.values
-dataset_male <- dataset_male  %>% mutate(ability_t09 = ability_male)
+dataset_male <- dataset_male  %>% mutate(ability_t09 = ability_male_t09)
 
 
 
@@ -80,84 +81,87 @@ dataset_male <- dataset_male  %>% mutate(ability_t09 = ability_male)
 ##############################female##############################
 qr_fs_female_t01 <- f_rq_results(dataset = dataset_female, tau = 0.1, stage = 1, IV = T) #tau = 0.1
 ability_female_t01 = dataset_female$edu_years - qr_fs_female_t01$fitted.values
-dataset_female <- dataset_female  %>% mutate(ability_t01 = ability_female)
+dataset_female <- dataset_female  %>% mutate(ability_t01 = ability_female_t01)
 
 
 qr_fs_female_t03 <- f_rq_results(dataset = dataset_female, tau = 0.3, stage = 1, IV = T) #tau = 0.3
 ability_female_t03 = dataset_female$edu_years - qr_fs_female_t03$fitted.values
-dataset_female <- dataset_female  %>% mutate(ability_t03 = ability_female)
+dataset_female <- dataset_female  %>% mutate(ability_t03 = ability_female_t03)
 
 
 qr_fs_female_t05 <- f_rq_results(dataset = dataset_female, tau = 0.5, stage = 1, IV = T) #tau = 0.5
 ability_female_t05 = dataset_female$edu_years - qr_fs_female_t05$fitted.values
-dataset_female <- dataset_female  %>% mutate(ability_t05 = ability_female)
+dataset_female <- dataset_female  %>% mutate(ability_t05 = ability_female_t05)
 
 
 qr_fs_female_t07 <- f_rq_results(dataset = dataset_female, tau = 0.7, stage = 1, IV = T) #tau = 0.7
 ability_female_t07 = dataset_female$edu_years - qr_fs_female_t07$fitted.values
-dataset_female <- dataset_female  %>% mutate(ability_t07 = ability_female)
+dataset_female <- dataset_female  %>% mutate(ability_t07 = ability_female_t07)
 
 qr_fs_female_t09 <- f_rq_results(dataset = dataset_female, tau = 0.9, stage = 1, IV = T) #tau = 0.9
 ability_female_t09 = dataset_female$edu_years - qr_fs_female_t09$fitted.values
-dataset_female <- dataset_female  %>% mutate(ability_t09 = ability_female)
+dataset_female <- dataset_female  %>% mutate(ability_t09 = ability_female_t09)
 
 
 
 
 
 ##########################################################################################################
-#obtain residuals for distribution of luck u
-qr_luck_male_t01 <- f_rq_results(dataset = dataset_male, tau = 0.1, stage = 2, IV = T) #tau = 0.1
-luck_male_t01 = dataset_male$edu_years - qr_luck_male_t01$residuals
-dataset_male <- dataset_male  %>% mutate(luck_t01 = luck_male)
-
-qr_luck_male_t03 <- f_rq_results(dataset = dataset_male, tau = 0.3, stage = 2, IV = T) #tau = 0.3
-luck_male_t03 = dataset_male$edu_years - qr_luck_male_t03$residuals
-dataset_male <- dataset_male  %>% mutate(luck_t03 = luck_male)
+#obtain fitted values for distribution of luck u and beta
+qr_luck_male_t01 <- f_rq_results(dataset = dataset_male, tau = 0.1, stage = 2, IV = T, ability_g_tau = 'ability_t01') #tau = 0.1
+luck_male_t01 = dataset_male$log_hourly_earnings - qr_luck_male_t01$fitted.values
+dataset_male <- dataset_male  %>% mutate(luck_t01 = luck_male_t01) %>% mutate(beta_01 = qr_luck_male_t01$coefficients[2])
 
 
-qr_luck_male_t05 <- f_rq_results(dataset = dataset_male, tau = 0.5, stage = 2, IV = T) #tau = 0.5
-luck_male_t05 = dataset_male$edu_years - qr_luck_male_t05$residuals
-dataset_male <- dataset_male  %>% mutate(luck_t05 = luck_male)
+qr_luck_male_t03 <- f_rq_results(dataset = dataset_male, tau = 0.3, stage = 2, IV = T,ability_g_tau = 'ability_t03') #tau = 0.3
+luck_male_t03 = dataset_male$log_hourly_earnings - qr_luck_male_t03$fitted.values
+dataset_male <- dataset_male  %>% mutate(luck_t03 = luck_male_t03) %>% mutate(beta_03 = qr_luck_male_t03$coefficients[2]) 
 
 
-qr_luck_male_t07 <- f_rq_results(dataset = dataset_male, tau = 0.7, stage = 2, IV = T) #tau = 0.7
-luck_male_t07 = dataset_male$edu_years - qr_luck_male_t07$residuals
-dataset_male <- dataset_male  %>% mutate(luck_t07 = luck_male)
+qr_luck_male_t05 <- f_rq_results(dataset = dataset_male, tau = 0.5, stage = 2, IV = T, ability_g_tau = 'ability_t05') #tau = 0.5
+luck_male_t05 = dataset_male$log_hourly_earnings - qr_luck_male_t05$fitted.values
+dataset_male <- dataset_male  %>% mutate(luck_t05 = luck_male_t05) %>% mutate(beta_05 = qr_luck_male_t05$coefficients[2])
 
 
-qr_luck_male_t09 <- f_rq_results(dataset = dataset_male, tau = 0.9, stage = 2, IV = T) #tau = 0.9
-luck_male_t09 = dataset_male$edu_years - qr_luck_male_t09$residuals
-dataset_male <- dataset_male  %>% mutate(luck_t09 = luck_male)
+qr_luck_male_t07 <- f_rq_results(dataset = dataset_male, tau = 0.7, stage = 2, IV = T, ability_g_tau = 'ability_t07') #tau = 0.7
+luck_male_t07 = dataset_male$log_hourly_earnings - qr_luck_male_t07$fitted.values
+dataset_male <- dataset_male  %>% mutate(luck_t07 = luck_male_t07) %>% mutate(beta_07 = qr_luck_male_t07$coefficients[2])
+
+
+qr_luck_male_t09 <- f_rq_results(dataset = dataset_male, tau = 0.9, stage = 2, IV = T, ability_g_tau = 'ability_t09') #tau = 0.9
+luck_male_t09 = dataset_male$log_hourly_earnings - qr_luck_male_t09$fitted.values
+dataset_male <- dataset_male  %>% mutate(luck_t09 = luck_male_t09) %>% mutate(beta_09 = qr_luck_male_t09$coefficients[2])
 
 
 
-##############################fefemale##############################
-qr_luck_female_t01 <- f_rq_results(dataset = dataset_female, tau = 0.1, stage = 2, IV = T) #tau = 0.1
-luck_female_t01 = dataset_female$edu_years - qr_luck_female_t01$residuals
-dataset_female <- dataset_female  %>% mutate(luck_t01 = luck_female)
+##############################female##############################
+qr_luck_female_t01 <- f_rq_results(dataset = dataset_female, tau = 0.1, stage = 2, IV = T, ability_g_tau = 'ability_t01') #tau = 0.1
+luck_female_t01 = dataset_female$log_hourly_earnings - qr_luck_female_t01$fitted.values
+dataset_female <- dataset_female  %>% mutate(luck_t01 = luck_female_t01) %>% mutate(beta_01 = qr_luck_female_t01$coefficients[2])
 
 
-qr_luck_female_t03 <- f_rq_results(dataset = dataset_female, tau = 0.3, stage = 2, IV = T) #tau = 0.3
-luck_female_t03 = dataset_female$edu_years - qr_luck_female_t03$residuals
-dataset_female <- dataset_female  %>% mutate(luck_t03 = luck_female)
+qr_luck_female_t03 <- f_rq_results(dataset = dataset_female, tau = 0.3, stage = 2, IV = T,ability_g_tau = 'ability_t03') #tau = 0.3
+luck_female_t03 = dataset_female$log_hourly_earnings - qr_luck_female_t03$fitted.values
+dataset_female <- dataset_female  %>% mutate(luck_t03 = luck_female_t03) %>% mutate(beta_03 = qr_luck_female_t03$coefficients[2]) 
 
 
-qr_luck_female_t05 <- f_rq_results(dataset = dataset_female, tau = 0.5, stage = 2, IV = T) #tau = 0.5
-luck_female_t05 = dataset_female$edu_years - qr_luck_female_t05$residuals
-dataset_female <- dataset_female  %>% mutate(luck_t05 = luck_female)
+qr_luck_female_t05 <- f_rq_results(dataset = dataset_female, tau = 0.5, stage = 2, IV = T, ability_g_tau = 'ability_t05') #tau = 0.5
+luck_female_t05 = dataset_female$log_hourly_earnings - qr_luck_female_t05$fitted.values
+dataset_female <- dataset_female  %>% mutate(luck_t05 = luck_female_t05) %>% mutate(beta_05 = qr_luck_female_t05$coefficients[2])
 
 
-qr_luck_female_t07 <- f_rq_results(dataset = dataset_female, tau = 0.7, stage = 2, IV = T) #tau = 0.7
-luck_female_t07 = dataset_female$edu_years - qr_luck_female_t07$residuals
-dataset_female <- dataset_female  %>% mutate(luck_t07 = luck_female)
+qr_luck_female_t07 <- f_rq_results(dataset = dataset_female, tau = 0.7, stage = 2, IV = T, ability_g_tau = 'ability_t07') #tau = 0.7
+luck_female_t07 = dataset_female$log_hourly_earnings - qr_luck_female_t07$fitted.values
+dataset_female <- dataset_female  %>% mutate(luck_t07 = luck_female_t07) %>% mutate(beta_07 = qr_luck_female_t07$coefficients[2])
 
 
-qr_luck_female_t09 <- f_rq_results(dataset = dataset_female, tau = 0.9, stage = 2, IV = T) #tau = 0.9
-luck_female_t09 = dataset_female$edu_years - qr_luck_female_t09$residuals
-dataset_female <- dataset_female  %>% mutate(luck_t09 = luck_female)
+qr_luck_female_t09 <- f_rq_results(dataset = dataset_female, tau = 0.9, stage = 2, IV = T, ability_g_tau = 'ability_t09') #tau = 0.9
+luck_female_t09 = dataset_female$log_hourly_earnings - qr_luck_female_t09$fitted.values
+dataset_female <- dataset_female  %>% mutate(luck_t09 = luck_female_t09) %>% mutate(beta_09 = qr_luck_female_t09$coefficients[2])
 
-
-# get effect of key parameter
-key_para__men_abi_01_luck_01 <- matrix(ability_male_t01, luck_male_t01)
+# get generate key parameter estimate si
+qr_key_female_t01 <- f_rq_results(dataset = dataset_female, tau = 0.1, stage = 3 , IV = T, ability_g_tau = 'ability_01', luck_g_tau = 'luck_01', key_param_g_tau = '')
 #generate key parameter of interest and adjust before all functions for luck
+
+
+rq(log_hourly_earnings ~ rq(edu_years ~1  + ycomp + ability_female_t01, data = dataset_female, method = 'sfn')$fitted.values:ability_female_t01 +  ability_female_t01 + luck_female_t01 , data =dataset_female, method = 'sfn')

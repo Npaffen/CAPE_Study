@@ -1,0 +1,97 @@
+% Encoding: UTF-8
+@article{lasek2013,
+ title={The predictive power of ranking systems in association football},
+ author={Lasek, Jan and Szl{\'a}vik, Zolt{\'a}n and Bhulai, Sandjai},
+ journal={International Journal of Applied Pattern Recognition},
+ volume={1},
+ number={1},
+ pages={27--46},
+ year={2013},
+ publisher={Inderscience Publishers Ltd., PO Box 735 Olney Bucks MK 46 5 WB United Kingdom}
+}
+
+
+@misc{eloratings,
+ title = {The World Football Elo Rating System},
+ howpublished = {\url{http://www.eloratings.net/system.html}},
+ note = {Accessed: 2012-03-03},
+ year={2012}
+}
+
+@misc{fupa,
+ title = {FuPa.net},
+ howpublished = {\url{https://www.fupa.net/liga/recklinghausen-kreisliga-a-gruppe-2/powerrankings}},
+ note = {Accessed: 2020-04-16},
+ year={2020}
+}
+
+@article{baseball,
+ title={Can he hit? Measuring and prognosis of offensiveperformance by baseball teams and individual teammembers},
+ author={Lobeck, Max and David Schulze and Paul Berbée},
+ journal={Seminar Paper, B.Sc. VWL HU Berlin},
+ year={2015}
+}
+
+@book{albert2007,
+  title={Curve ball: Baseball, statistics, and the role of chance in the game},
+  author={Albert, Jim and Bennett, Jay},
+  year={2007},
+  publisher={Springer Science \& Business Media}
+}
+
+@article{correa,
+  title={The next winner of the 2018 FIFA World Cup will be...: An illustration of the use of statistical simulation to make a prediction in a complex tournament.},
+  author={Correa, M and Barrera-Causil, Carlos and Marmolejo-Ramos, Fernando},
+  journal={Chilean Journal of Statistics (ChJS)},
+  volume={9},
+  number={1},
+  year={2018}
+}
+
+@article{tsokos2019,
+  title={Modeling outcomes of soccer matches},
+  author={Tsokos, Alkeos and Narayanan, Santhosh and Kosmidis, Ioannis and Baio, Gianluca and Cucuringu, Mihai and Whitaker, Gavin and Kir{\'a}ly, Franz},
+  journal={Machine Learning},
+  volume={108},
+  number={1},
+  pages={77--95},
+  year={2019},
+  publisher={Springer}
+}
+
+@article{Boshnakov2016,
+title = "A bivariate Weibull count model for forecasting association football scores",
+journal = "International Journal of Forecasting",
+volume = "33",
+number = "2",
+pages = "458 - 466",
+year = "2017",
+issn = "0169-2070",
+doi = "https://doi.org/10.1016/j.ijforecast.2016.11.006",
+author = "Georgi Boshnakov and Tarak Kharrat and Ian G. McHale"
+}
+
+@article{karlis2003,
+author = {Karlis, Dimitris and Ntzoufras, Ioannis},
+title = {Analysis of sports data by using bivariate Poisson models},
+journal = {Journal of the Royal Statistical Society: Series D (The Statistician)},
+volume = {52},
+number = {3},
+pages = {381-393},
+keywords = {Bivariate Poisson regression, Difference of Poisson variates, Inflated distributions, Soccer},
+doi = {10.1111/1467-9884.00366},
+url = {https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/1467-9884.00366},
+year = {2003}
+}
+
+@Article{article,
+  author  = {Pollard, Richard},
+  title   = {Home Advantage in Football: A Current Review of an Unsolved Puzzle},
+  journal = {The Open Sports Sciences Journal},
+  year    = {2008},
+  volume  = {1},
+  month   = {06},
+  doi     = {10.2174/1875399X00801010012},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

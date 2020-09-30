@@ -10,8 +10,6 @@ CPI <- read_csv(str_c(here::here(), '/data/CPI_Count_00_04.csv')) %>%
   select(Country, Time, Value,`Reference Period`) %>%
   arrange(Country)
   
-  
-
 source(str_c(here::here(), '/src/functions.R')) 
 #data5 has somewhat a type problem in some variables
 
@@ -26,7 +24,7 @@ total_income_gross <- tibble(mergeid = data2$mergeid%>% unname(), ytotg = data2$
 
 #filter for countrys used in the paper
 country_code <- c(11,23,18,17,12,19,30,16,14,13,15)
-country_names <-c('Austria', 'Belgium', 'Denmark', 'France', 'Germany', 'Greece', 'Irland', 'Italy', 'Netherlands', 'Sweden', 'Spain')
+country_names <-c('Austria', 'Belgium', 'Denmark', 'France', 'Germany', 'Greece', 'Ireland', 'Italy', 'Netherlands', 'Sweden', 'Spain')
 
 
 names(gdp_1990)==names(pop)
@@ -118,6 +116,10 @@ dataset <- inner_join(x =hours_per_week,y= total_income_gross, by = 'mergeid') %
   dummy_cols(select_columns = c('country_name')) %>%
   #make sure every columns is of the same type
   mutate_if(is.integer, .funs = list(as.numeric))%>%
+  #filter for all non-negative values of schooling
+  filter(edu_years >= 0) %>%
+  #filter for all non-negative values log hourly earnings
+  filter(log_hourly_earnings >= 0) %>%
   select(!contains('1')|!matches(names(mutation_helper))) %>% #remove gdp_head_helper
   select(-age, age) %>% #sets age as last column so helper variables can easier removed
   arrange(country_name) #sort by country_name
@@ -140,6 +142,8 @@ interactions <- tibble(inter_q, inter_q_2, inter_age, inter_age_2) %>% mutate(me
 
 #merge interactions and dataset
 dataset <- dataset %>% left_join(interactions)
+#write full dataset 
+write_rds(dataset, path = str_c(here::here(),'/data/datasetfull.Rds'))
 #reduce the dataset to endogenous, exogenous, treatment/instrument
 dataset <- dataset %>% select(-c(1:4,8:16)) %>% select(log_hourly_earnings, everything())
 #Generate treated and control group
@@ -150,7 +154,7 @@ control <- dataset %>% filter(control == 'Contr') %>% mutate(mean = mean(log_hou
 write_rds(treated, path = str_c(here::here(),'/data/treated.Rds'))
 write_rds(control, path = str_c(here::here(),'/data/control.Rds'))
 #delete treatment 
-dataset <- dataset %>% select(-c(6:8, 13))
+dataset <- dataset %>% select(-c(6:9, 13)) %>% select(-yrbirth)
 #write dataset
 write_rds(dataset, path = str_c(here::here(),'/data/dataset_no_treat_compl.Rds'))
 #Controll

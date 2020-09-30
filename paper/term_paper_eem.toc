@@ -8,6 +8,6 @@
 \contentsline {section}{\numberline {2}Empirical Model}{1}{section.2}%
 \contentsline {section}{\numberline {3}Empirical Strategy}{4}{section.3}%
 \contentsline {section}{\numberline {4}Data}{6}{section.4}%
-\contentsline {section}{\numberline {5}Empirical Evidence}{7}{section.5}%
-\contentsline {section}{\numberline {6}Discussion of the findings}{11}{section.6}%
-\contentsline {section}{\numberline {7}Conclusions}{12}{section.7}%
+\contentsline {section}{\numberline {5}Empirical Evidence}{8}{section.5}%
+\contentsline {section}{\numberline {6}Discussion of the findings}{13}{section.6}%
+\contentsline {section}{\numberline {7}Conclusions}{13}{section.7}%

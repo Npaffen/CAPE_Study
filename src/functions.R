@@ -1,8 +1,8 @@
-#Set NA to 0 or 1 for population sheet, Rename columns by year or country for first col
 
+#helper function for the the OECD gdp data
 f_data_cleaner <- function(sheet){
   x <- readxl::read_xlsx(str_c(here::here(), '/data//gdp_data.xlsx'), 
-                         sheet = sheet,
+                         sheet = sheet
   ) %>% select(-c('...3', '...5', '...7', '...9', '...11'))
   x[2,1] <- 'Country'
   x <- x %>% data.table::setnames(
@@ -15,17 +15,18 @@ f_data_cleaner <- function(sheet){
   return(x)
 }
 
-f_ols_resid <- function(dataset, t_){ #generate residuals of regression of years of schooling
+#generate residuals of regression of years of schooling
+f_ols_resid <- function(dataset, t_){ 
   dataset_t <- dataset %>% filter(t == t_, gender == 1)
   
   controls <- dataset_t %>% select(-edu_years, -log_hourly_earnings, -t, -ycomp, -gender)
-    
+  
   X_names <- controls %>% names()
   formula <- as.formula(str_c('edu_years ~ 1 +',str_c(X_names, collapse = '+')))
   fit <- unname(lm(formula, data = dataset_t)$residuals)
   resid_men <- mean(fit)
   
-  dataset_t <- dataset %>% filter(t == t_, gender == 0,) 
+  dataset_t <- dataset %>% filter(t == t_, gender == 0) 
   controls <- dataset_t %>% select(-edu_years, -log_hourly_earnings, -t, -ycomp, -gender)
   
   X_names <- controls %>% names()
@@ -35,41 +36,20 @@ f_ols_resid <- function(dataset, t_){ #generate residuals of regression of years
   
   resid <- mean(c(resid_men, resid_women))
   return(resid)
+  
+}
 
-  }
 
-#jitter but return only positive values
+
+#function to jitter data and prevails data.structure and classes
 jitter_pos <- function(dataset, jitter.val = 0.01){
   #jitter the dataset
-  dataset_old <- dataset %>% as.matrix() %>% jitter(jitter.val) %>% as_tibble() %>% mutate_if(is_double, .funs = list(as.numeric))
-
-return(dataset_old)
-  }
-
-#for the ols results
-f_ols_residuals <- function(dataset, gender_sub, treat  ) {
-  if(treat == T){t <- 0:5}else{t <- -5:-1}
+  dataset_alt <- dataset %>% as.matrix() %>% jitter(jitter.val) %>% as_tibble() %>% mutate_if(is_double, .funs = list(as.numeric))
   
-  residuals_out<- tibble( residuals = numeric(length(t)))
-  for (t_sub in t ) {
-  
-  
-  data_lm <- dataset %>% filter(t == t_sub)
-  #control
-  
-  X <- dataset %>% select(gdp_head, gdp_head_t_1, gdp_head_t_2) %>% mutate(cons = 1)
-  index <- ifelse(treat == T, t_sub+1,t_sub+6)
-  if(nrow(dataset)>0){
- residuals_out[index,2] <- lm(data = data_lm,  edu_years ~ 1 + ycomp + country_name_Austria + country_name_Belgium +  country_name_Denmark + country_name_Germany + country_name_Greece +
-       country_name_Italy + country_name_Netherlands + country_name_Spain + country_name_Sweden + q + q_2 +
-       q:country_name_Austria + q:country_name_Belgium +  q:country_name_Denmark + q:country_name_Germany + q:country_name_Greece +
-       q:country_name_Italy + q:country_name_Netherlands + q:country_name_Spain + q:country_name_Sweden +
-       q_2:country_name_Austria + q_2:country_name_Belgium +  q_2:country_name_Denmark + q_2:country_name_Germany + q_2:country_name_Greece +
-       q_2:country_name_Italy + q_2:country_name_Netherlands + q_2:country_name_Spain + q_2:country_name_Sweden+ age + age_2 + gender
-  ) %>% residuals %>% mean} else {residuals_out[index,2] <- 0}
-  }
- return(residuals_out)
+  return(dataset_alt)
 }
+
+
 ######################################################################################################################################################################################
 
 #Generate estimation formulas for the different stages
@@ -184,18 +164,6 @@ f_iv_ftest <- function(dataset, tau, IV = T, stage = 1, ability_g_tau = 0, luck_
   }
 
 
-#Need to be done for stage 3
-#generate key_param
-#generate cdf of qunatile distributin function for ability and random error u
-
-'. First, we estimate the conditional quantile
-functions of schooling s and compute the control variate
-aðsaÞ ¼ s  Qsðsa j X; zÞ ð11Þ
-where s is observed schooling and Qsðsa j X; zÞ is the estimated conditional quantile.
-Second, we augment the conditional quantile functions of ln (w) with the relevant
-control variate and its interaction with schooling. Finally, we simultaneously estimate
-the selected quantiles of ln(s) conditional on Qs(sa j X, z), X and z as in the hybrid
-model in (8) and obtain the variance–covariance matrix by bootstrapping'
 
 
 

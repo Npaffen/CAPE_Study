@@ -271,39 +271,39 @@
 
 \newpage
 \pagenumbering{arabic}
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
-This term paper will focus on the summarization and replicated results
-of \textcite{brunello}. The main idea of the paper is to show if
-extending years of compuolsory schooling has an effect on the
+This term paper will focus on the summarization and the replicated
+results of \textcite{brunello}. The main idea of the paper is to show if
+extending years of compulsory schooling has an effect on the
 distribution of wages. Further findings might be that compulsory school
 reforms significantly affect educational attainment, which holds in this
-replication study for almost none qunatile, since the given data do not
-help to show the possible effect of the instrument years of compulsory
-schooling . This term paper, is limited to the data of the SHARE data
-set, compared to a mixed dataset consisting of a \enquote{data{[}set{]}
-drawn from the 8th wave of the European Community Household Panel (ECHP)
-for the year 2001, the first wave of the Survey on Household Health,
-Ageing and Retirement in Europe, or SHARE, for the year 2004, and the
-waves 1993 to 2002 of the International Social Survey Program
-(ISSP)}\textcite{brunello}. Due to the latter difference, replicated
-results differ heavily from those in the original paper. More about this
-in the dicussion section. This paper will start with a summary of the
-empirical model and the strategy the authors used, followed by a short
-overview of the SHARE dataset. Afterwards the replicated results limited
-to the latter dataset were presented and a short comparison to the
-findings of \textcite{brunello} is included. A discussion of the
-replicated results is followed by a conclusion section which closes this
-term paper.
+replication study for almost none qunatile, since the given data does
+not help to show the possible effect of the instrument years of
+compulsory schooling . This term paper, is limited to the data of the
+SHARE data set, compared to a mixed dataset consisting of a
+\enquote{data{[}set{]} drawn from the 8th wave of the European Community
+Household Panel (ECHP) for the year 2001, the first wave of the Survey
+on Household Health, Ageing and Retirement in Europe, or SHARE, for the
+year 2004, and the waves 1993 to 2002 of the International Social Survey
+Program (ISSP)}\textcite{brunello}. Due to the latter difference,
+replicated results differ heavily from those in the original paper. More
+about this in the dicussion section. This paper will start with a
+summary of the empirical model and the strategy the authors used,
+followed by a short overview of the SHARE dataset. Afterwards the
+replicated results limited to the latter dataset were presented and a
+short comparison to the findings of \textcite{brunello} is included. A
+discussion of the replicated results is followed by a conclusion section
+which closes this term paper.
 
-\hypertarget{empirical-model}{%
-\section{Empirical Model}\label{empirical-model}}
+\section{Empirical Model}\label{empirical-model}
 
-The author of the original paper start with an introduction to schooling
-and the direct correlation on wages. They claim that the individuals or
-their parents choose years of schooling to maximise
+The author of the original paper starts with an introduction to
+schooling and the direct correlation on wages. They claim that the
+individuals or their parents choose years of schooling to maximise
+
 \begin{align}u\left(w_{i}, s_{i}\right)=\ln \left(w_{i}\right)-c\left(s_{i}\right)\end{align}
+
 where \(w_i\) is interpreted as a function of \(s_i\)
 (\(w_i = g(s_i)\)), \(s_i\) itself is defined as year of schooling,
 \(c(s_i)\) is the cost of schooling, while the index \(i\) indicates the
@@ -312,9 +312,14 @@ satisfies the equation of the marignal costs and the (expected) marginal
 benefits of schooling. The marginal costs rise in schooling, decrease in
 cognitive ability \(a_i\) and are a function of extenal controls \(X_i\)
 and \(z\)
+
 \begin{align} mc\left(s_{i}\right)=r\left(X_{i}, z\right)+\theta s_{i}-\kappa .
-a_{i}\end{align} Further the author follow a Miniceria earnings function
+a_{i}\end{align}
+
+Further the author follow a Miniceria earnings function
+
 \begin{align}\ln\left(w_{i}\right)=\beta s_{i}+s_{i}\left(\lambda a_{i}+\phi u_{i}\right)+\gamma_{w} X_{i}+a_{i}+u_{i}\end{align}
+
 where constant term is incldued in X, in the model of the replication
 study a constant is added seperatly to the model, the variable
 \(a \sim G_a(0,\sigma^2_a)\) (cognitive ability) is knwon to the
@@ -329,9 +334,15 @@ through the interaction with ability and labour market fortune. Ability
 influences the individual earnings through \(a_i\) in a direkt way and
 via its product with schooling. As mentioned in the beginning, optimal
 schooling \(s_i^*\) needs to satisfy
-\begin{align}mc(s_i) = mb(si)\end{align} where \(mb(s_i)\) is defined as
-\begin{align} mb(s_i)= \beta + \lambda a_i \end{align} therefore
-\(s_i^*\) can be written as
+
+\begin{align}mc(s_i) = mb(si)\end{align}
+
+where \(mb(s_i)\) is defined as
+
+\begin{align} mb(s_i)= \beta + \lambda a_i \end{align}
+
+therefore \(s_i^*\) can be written as
+
 \begin{align} s_i^* = \frac{\beta - r(X_i, z_i)}{\theta} + \frac{\lambda  + \kappa}{\theta}*a_i \end{align}
 
 When \(\lambda>0\) ability and schooling are complements and both can be
@@ -356,9 +367,11 @@ and orthognal to the endogenous variable of (8). The instrumental
 variable in this model is years of compulsory schooling \(ycomp\). Taken
 this into account the (exactly indentified triangular) model can be
 expressed as :
+
 \begin{align} \ln(w)&=\beta s+s(\lambda a+\phi u)+\gamma_{w} X+a+u \\
-s&=\gamma_{s} X+\pi z+\xi a \end{align} with
-\(\xi=(\lambda+\kappa) / \theta\) Let
+s&=\gamma_{s} X+\pi z+\xi a \end{align}
+
+with \(\xi=(\lambda+\kappa) / \theta\) Let
 \(\tau_{a}=G_{a}\left(a_{\tau_{a}}\right) \text { and } \tau_{u}=G_{u}\left(u_{\tau_{u}}\right)\),
 where \(a_{\tau_{a}}\) and \(u_{\tau_{u}}\) are the \(\tau-\) quantiles
 of the distributions of \(a\) and \(u\), respectively. Additionally
@@ -371,34 +384,43 @@ functions of schooling \(s\) and afterwards subtract the estimated
 values of the specific qunatile from years of schooling. Considering (8)
 again and the fact that the model is exactly identified one only remains
 with the value of ability at the specific quantile tau. Formally :
+
 \begin{align}a\left(\tau_{a}\right)=s-\bar{Q}_{s}\left(\tau_{a}\mid X,z\right).\end{align}
+
 Afterwards one adjust the conditional quantile functions of \(ln(w)\)
 with the control variate of (9) so that the residuals, orthogonal to
 ability, of the estimated conditional qunatile regression of \(ln(w)\)
 yields to \(u(\tau_u)\) of the following regression equation :
+
 \begin{align}
 \tilde{Q}_w[\tau_u|X, s, a(\tau_a)] = \beta s + s(\lambda a(\tau_a) + \phi u(\tau_u)) + \gamma_w X + G_{a}^{-1}\left(\tau_{a}\right) + G_{u}^{-1}\left(\tau_{u}\right)
 \end{align}
 
 Now one can construct the parameter \(\Pi(\tau_a,\tau_u)\) which is a
-matrix with the following structure : \begin{align} \Pi\left(\tau_{a},
+matrix with the following structure :
+
+\begin{align} \Pi\left(\tau_{a},
  \tau_{u}\right)=\beta+\lambda G_{a}^{-1}\left(\tau_{a}\right)+\phi
  G_{u}^{-1}\left(\tau_{u}\right)
- \end{align} Due to recursive conditioning
-\(Q_{s}\left(\tau_{a}\mid X,z\right)\) on
+ \end{align}
+
+Due to recursive conditioning \(Q_{s}\left(\tau_{a}\mid X,z\right)\) on
 \(Q_{w}\left[\tau_{u}\mid X,z\right)\) one yields to the following model
-: \begin{align} Q_{w}\left[\tau_{u}
+:
+
+\begin{align} Q_{w}\left[\tau_{u}
  \mid Q_s\left(\tau_{a} \mid X, z\right), X, z\right]&=Q_s\left(\tau_{a}
  \mid X, z\right) \Pi\left(\tau_{a}, \tau_{u}\right)+\gamma_{w}
  X+G_{a}^{-1}\left(\tau_{a}\right)+G_{u}^{-1}\left(\tau_{u}\right)&  \\
  Q_{s}\left(\tau_{a} \mid X, z\right)&=\gamma_{s} X+\pi z+\xi
  G_{a}^{-1}\left(\tau_{a}\right) & 
- \end{align} A a two stage fit of the the latter models then gives us
-the coeficient of \(Q_s\left(\tau_{a}\mid X, z\right)\) After we plug
-this into \(\Pi\left(\tau_{a},\tau_{u}\right)\) for the coefficient
-\(\beta\). We will repeat this step for each quantile tau (0.1, 0.3,
-0.5, 0.9) but always altering only the quantiles of either \(\tau{u}\)
-of
+ \end{align}
+
+A a two stage fit of the the latter models then gives us the coeficient
+of \(Q_s\left(\tau_{a}\mid X, z\right)\) After we plug this into
+\(\Pi\left(\tau_{a},\tau_{u}\right)\) for the coefficient \(\beta\). We
+will repeat this step for each quantile tau (0.1, 0.3, 0.5, 0.9) but
+always altering only the quantiles of either \(\tau{u}\) of
 \(Q_{w}\left[\tau_{u}\mid Q_s\left(\tau_{a} \mid X, z\right), X, z\right]\)
 or \(\tau{a}\) of the parameter
 \(Q_s\left(\tau_{a}\mid X, z\right) \Pi\left(\tau_{a}, \tau_{u}\right)\)
@@ -415,8 +437,7 @@ an individual with average abilites is rewarded for educatinal
 attainment in the different qunatiles of the labour market luck
 distribution.
 
-\hypertarget{empirical-strategy}{%
-\section{Empirical Strategy}\label{empirical-strategy}}
+\section{Empirical Strategy}\label{empirical-strategy}
 
 The crucial change in the papers strategy is, compared to other papers
 using the same instrument, is that the results are not limited to the
@@ -474,8 +495,7 @@ is even an downward jump when the reform hits the pupils. We will see in
 latter results that in the first stage regression the instrumnent ycomp
 is always insignificant and mostly negative.
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+\section{Data}\label{data}
 
 As mentioned in the beginning this recursive study is done using only
 the data of the SHARE dataset. More than a decade has passed since the
@@ -496,6 +516,7 @@ educational attainment does ot change after age 25. The final sample
 contains 7165 observations from 0 countries instead of 12 of the
 original paper.
 
+\begin{verbatim}
 \newcommand{\range}[1]{\eqparbox{ra}{#1}}
 \newcolumntype{R}{>{\collectcell\range}c<{\endcollectcell}}
 
@@ -525,6 +546,7 @@ Sweden & 2.039 & 9.487 & 8.454 & 8 to 9 & 55.355 & 0.567 & 383 & 0.454 \\
 \bottomrule
 \end{tabular} 
 \end{table} 
+\end{verbatim}
 
 Table 1 shows the log hourly real earnings, years of schooling, years of
 compulsory schooling, average age and percentage of males. Education
@@ -558,8 +580,7 @@ changes in educational attainment after the reform can be credited to
 the reform itself and not to some other economic time and/or
 country-specific factors.
 
-\hypertarget{empirical-evidence}{%
-\section{Empirical Evidence}\label{empirical-evidence}}
+\section{Empirical Evidence}\label{empirical-evidence}
 
 Before this paper starts with the discussion of the results, one problem
 that arised during almost all regression results that will follow in
@@ -587,6 +608,7 @@ in this paper will be the quantile effect of education, as expressed by
 years of schooling, on the log earnings, under the condtion that
 education is treated as exogenous.
 
+\begin{verbatim}
 
 \begin{table}[!htbp]
 \captionsetup{labelsep=newline, justification=centering}
@@ -610,6 +632,8 @@ education is treated as exogenous.
   \end{threeparttable}
 \end{table}
 
+\end{verbatim}
+
 Table 2 highlights returns to a one year increase in education from the
 10th to the 90th quantile. All results are statistically significant at
 the highest level. In difference to \textcite{brunello} the returns for
@@ -628,6 +652,7 @@ Therefore we will use the described instrument ycomp to explain
 schooling and use these values as a substitute for education in our log
 earnings regression model.
 
+\begin{verbatim}
 
 \begin{table}[!htbp]
 \captionsetup{justification=centering}
@@ -652,6 +677,7 @@ earnings regression model.
     \end{tablenotes}
   \end{threeparttable}
 \end{table}
+\end{verbatim}
 
 In the section about the empirical strategy we already got a feeling for
 for the effect of the instrument ycomp. Figure 1 shows almost zero
@@ -679,6 +705,7 @@ schooling.
 
 In the next step
 
+\begin{verbatim}
 
 \begin{table}[!htbp]
 \captionsetup{labelsep=newline, justification=centering}
@@ -718,6 +745,7 @@ Mean effect+ &6.167885 & 2.649243 & 2.522340 &  3.702072 &  2.544303
     \end{tablenotes}
   \end{threeparttable}
 \end{table}
+\end{verbatim}
 
 the full matrix of quantile treatment effects is estimated by applying
 the control variate approach as described by \textcite{MaKoenk} in the
@@ -750,8 +778,7 @@ wages. The authors found that espically women from the lowest percentile
 benefit from an extra year of compulsory schooling be returns for the
 surplus education of roughly 10\%.
 
-\hypertarget{discussion-of-the-findings}{%
-\section{Discussion of the findings}\label{discussion-of-the-findings}}
+\section{Discussion of the findings}\label{discussion-of-the-findings}
 
 Either the quantile regression method fails completly on this kind of
 dataset or the dataset is not good to show the effect of the choosen
@@ -783,8 +810,7 @@ significant due to lack of observed treated individuals. An plausible
 explanation why \textcite{brunello} added these data to their study,
 might be as mostly control individuals for the treatment effect.
 
-\hypertarget{conclusions}{%
-\section{Conclusions}\label{conclusions}}
+\section{Conclusions}\label{conclusions}
 
 The results of the replication study shed light on how returns of
 compulsory schooling to both genders affects their earnings. Mostly for

@@ -67,22 +67,22 @@ dataset_female <- dataset %>% filter(gender == 0)%>% select(log_hourly_earnings,
 ################################################male#################################################################
 
 qr_exo_male_t01 <- f_rq_results(dataset = dataset_male, tau = 0.1, stage = 0, IV = F)
-sum_exo_male_t01 <- summary.rq(qr_exo_male_t01 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_male_t01 <- summary.rq(qr_exo_male_t01 , se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_exo_male_t03 <- f_rq_results(dataset = dataset_male, tau = 0.3, stage = 0, IV = F)
-sum_exo_male_t03 <- summary.rq(qr_exo_male_t03 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_male_t03 <- summary.rq(qr_exo_male_t03 , se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_exo_male_t05 <- f_rq_results(dataset = dataset_male, tau = 0.5, stage = 0, IV = F)
-sum_exo_male_t05 <- summary.rq(qr_exo_male_t05 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_male_t05 <- summary.rq(qr_exo_male_t05 , se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_exo_male_t07 <- f_rq_results(dataset = dataset_male, tau = 0.7, stage = 0, IV = F)
-sum_exo_male_t07 <- summary.rq(qr_exo_male_t07 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_male_t07 <- summary.rq(qr_exo_male_t07 , se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_exo_male_t09 <- f_rq_results(dataset = dataset_male, tau = 0.9, stage = 0, IV = F)
-sum_exo_male_t09 <- summary.rq(qr_exo_male_t09 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_male_t09 <- summary.rq(qr_exo_male_t09 , se = 'boot')[[3]][c(59,118,177,236)]
 
 #generate table of relevant coeffient of edu_years and save related statistics
 
@@ -111,22 +111,22 @@ write_rds(exo_sum_male, path = str_c(here::here(),'/data/exo_sum_male.rds'))
 ################################################male#################################################################
 
 qr_exo_female_t01 <- f_rq_results(dataset = dataset_female, tau = 0.1, stage = 0, IV = F)
-sum_exo_female_t01 <- summary.rq(qr_exo_female_t01 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_female_t01 <- summary.rq(qr_exo_female_t01 , se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_exo_female_t03 <- f_rq_results(dataset = dataset_female, tau = 0.3, stage = 0, IV = F)
-sum_exo_female_t03 <- summary.rq(qr_exo_female_t03 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_female_t03 <- summary.rq(qr_exo_female_t03 , se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_exo_female_t05 <- f_rq_results(dataset = dataset_female, tau = 0.5, stage = 0, IV = F)
-sum_exo_female_t05 <- summary.rq(qr_exo_female_t05 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_female_t05 <- summary.rq(qr_exo_female_t05 , se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_exo_female_t07 <- f_rq_results(dataset = dataset_female, tau = 0.7, stage = 0, IV = F)
-sum_exo_female_t07 <- summary.rq(qr_exo_female_t07 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_female_t07 <- summary.rq(qr_exo_female_t07 , se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_exo_female_t09 <- f_rq_results(dataset = dataset_female, tau = 0.9, stage = 0, IV = F)
-sum_exo_female_t09 <- summary.rq(qr_exo_female_t09 , se = 'boot')[[3]][c(60,120,180,240)]
+sum_exo_female_t09 <- summary.rq(qr_exo_female_t09 , se = 'boot')[[3]][c(59,118,177,236)]
 
 exo_sum_female <- tibble(value = c(sum_exo_female_t01[1],
                                    sum_exo_female_t03[1],
@@ -161,14 +161,14 @@ dataset_male <- dataset_male  %>% mutate(ability_t01 = ability_male_t01) %>%
   mutate(school_ability_t01 = dataset_male$edu_years*ability_male_t01)
 Ftest_male_01 <-f_iv_ftest(dataset = dataset_male, tau = 0.1, stage = 1, IV = T)
 
-sum_fs_male_t01 <- summary.rq(qr_fs_male_t01, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_male_t01 <- summary.rq(qr_fs_male_t01, se = 'boot')[[3]][c(59,118,177,236)]
 qr_fs_male_t03 <- f_rq_results(dataset = dataset_male, tau = 0.3, stage = 1, IV = T) #tau = 0.3
 
 ability_male_t03 = dataset_male$edu_years - qr_fs_male_t03$fitted.values
 dataset_male <- dataset_male  %>% mutate(ability_t03 = ability_male_t03) %>%
   mutate(school_ability_t03 = dataset_male$edu_years*ability_male_t03)
 Ftest_male_03 <-f_iv_ftest(dataset = dataset_male, tau = 0.3, stage = 1, IV = T)
-sum_fs_male_t03 <- summary.rq(qr_fs_male_t03, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_male_t03 <- summary.rq(qr_fs_male_t03, se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_fs_male_t05 <- f_rq_results(dataset = dataset_male, tau = 0.5, stage = 1, IV = T) #tau = 0.5
 
@@ -176,7 +176,7 @@ ability_male_t05 = dataset_male$edu_years - qr_fs_male_t05$fitted.values
 dataset_male <- dataset_male  %>% mutate(ability_t05 = ability_male_t05) %>%
   mutate(school_ability_t05 = dataset_male$edu_years*ability_male_t05)
 Ftest_male_05 <-f_iv_ftest(dataset = dataset_male, tau = 0.5, stage = 1, IV = T)
-sum_fs_male_t05 <- summary.rq(qr_fs_male_t05, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_male_t05 <- summary.rq(qr_fs_male_t05, se = 'boot')[[3]][c(59,118,177,236)]
 
 
 qr_fs_male_t07 <- f_rq_results(dataset = dataset_male, tau = 0.7, stage = 1, IV = T) #tau = 0.7
@@ -185,7 +185,7 @@ ability_male_t07 = dataset_male$edu_years - qr_fs_male_t07$fitted.values
 dataset_male <- dataset_male  %>% mutate(ability_t07 = ability_male_t07) %>%
   mutate(school_ability_t07 = dataset_male$edu_years*ability_male_t07)
 Ftest_male_07 <-f_iv_ftest(dataset = dataset_male, tau = 0.7, stage = 1, IV = T)
-sum_fs_male_t07 <- summary.rq(qr_fs_male_t07, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_male_t07 <- summary.rq(qr_fs_male_t07, se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_fs_male_t09 <- f_rq_results(dataset = dataset_male, tau = 0.9, stage = 1, IV = T) #tau = 0.9
 
@@ -193,7 +193,7 @@ ability_male_t09 = dataset_male$edu_years - qr_fs_male_t09$fitted.values
 dataset_male <- dataset_male  %>% mutate(ability_t09 = ability_male_t09) %>%
   mutate(school_ability_t09 = dataset_male$edu_years*ability_male_t09)
 Ftest_male_09 <-f_iv_ftest(dataset = dataset_male, tau = 0.9, stage = 1, IV = T)
-sum_fs_male_t09 <- summary.rq(qr_fs_male_t09, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_male_t09 <- summary.rq(qr_fs_male_t09, se = 'boot')[[3]][c(59,118,177,236)]
 
 IV_sum_male <- tibble(value = c(sum_fs_male_t01[1],
                                 sum_fs_male_t03[1],
@@ -234,7 +234,7 @@ ability_female_t01 = dataset_female$edu_years - qr_fs_female_t01$fitted.values
 dataset_female <- dataset_female  %>% mutate(ability_t01 = ability_female_t01) %>%
   mutate(school_ability_t01 = dataset_female$edu_years*ability_female_t01)
 Ftest_female_01 <-f_iv_ftest(dataset = dataset_female, tau = 0.1, stage = 1, IV = T)
-sum_fs_female_t01 <- summary.rq(qr_fs_female_t01, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_female_t01 <- summary.rq(qr_fs_female_t01, se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_fs_female_t03 <- f_rq_results(dataset = dataset_female, tau = 0.3, stage = 1, IV = T) #tau = 0.3
 
@@ -242,7 +242,7 @@ ability_female_t03 = dataset_female$edu_years - qr_fs_female_t03$fitted.values
 dataset_female <- dataset_female  %>% mutate(ability_t03 = ability_female_t03) %>%
   mutate(school_ability_t03 = dataset_female$edu_years*ability_female_t03)
 Ftest_female_03 <-f_iv_ftest(dataset = dataset_female, tau = 0.3, stage = 1, IV = T)
-sum_fs_female_t03 <- summary.rq(qr_fs_female_t03, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_female_t03 <- summary.rq(qr_fs_female_t03, se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_fs_female_t05 <- f_rq_results(dataset = dataset_female, tau = 0.5, stage = 1, IV = T) #tau = 0.5
 
@@ -250,7 +250,7 @@ ability_female_t05 = dataset_female$edu_years - qr_fs_female_t05$fitted.values
 dataset_female <- dataset_female  %>% mutate(ability_t05 = ability_female_t05) %>%
   mutate(school_ability_t05 = dataset_female$edu_years*ability_female_t05)
 Ftest_female_05 <-f_iv_ftest(dataset = dataset_female, tau = 0.5, stage = 1, IV = T)
-sum_fs_female_t05 <- summary.rq(qr_fs_female_t05, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_female_t05 <- summary.rq(qr_fs_female_t05, se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_fs_female_t07 <- f_rq_results(dataset = dataset_female, tau = 0.7, stage = 1, IV = T) #tau = 0.7
 
@@ -258,7 +258,7 @@ ability_female_t07 = dataset_female$edu_years - qr_fs_female_t07$fitted.values
 dataset_female <- dataset_female  %>% mutate(ability_t07 = ability_female_t07) %>%
   mutate(school_ability_t07 = dataset_female$edu_years*ability_female_t07)
 Ftest_female_07 <-f_iv_ftest(dataset = dataset_female, tau = 0.7, stage = 1, IV = T)
-sum_fs_female_t07 <- summary.rq(qr_fs_female_t07, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_female_t07 <- summary.rq(qr_fs_female_t07, se = 'boot')[[3]][c(59,118,177,236)]
 
 qr_fs_female_t09 <- f_rq_results(dataset = dataset_female, tau = 0.9, stage = 1, IV = T) #tau = 0.9
 
@@ -266,7 +266,7 @@ ability_female_t09 = dataset_female$edu_years - qr_fs_female_t09$fitted.values
 dataset_female <- dataset_female  %>% mutate(ability_t09 = ability_female_t09) %>%
   mutate(school_ability_t09 = dataset_female$edu_years*ability_female_t09)
 Ftest_female_09 <-f_iv_ftest(dataset = dataset_female, tau = 0.9, stage = 1, IV = T)
-sum_fs_female_t09 <- summary.rq(qr_fs_female_t09, se = 'boot')[[3]][c(60,120,180,240)]
+sum_fs_female_t09 <- summary.rq(qr_fs_female_t09, se = 'boot')[[3]][c(59,118,177,236)]
 
 IV_sum_female <- tibble(value = c(sum_fs_female_t01[1],
                                   sum_fs_female_t03[1],
@@ -368,11 +368,11 @@ qr_key_male_ts_09 <- map(.x =c(0.1, 0.3, 0.5, 0.7, 0.9),~f_rq_results(dataset = 
 qr_key_se_male_t09 <- map(qr_key_male_ts_09,~summary.rq(.x, se ='boot'))
 
 
-qr_key_se_male_t01_all<- map(.x = 1:5,~qr_key_se_male_t01[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_male_t03_all<- map(.x = 1:5,~qr_key_se_male_t03[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_male_t05_all<- map(.x = 1:5,~qr_key_se_male_t05[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_male_t07_all<- map(.x = 1:5,~qr_key_se_male_t07[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_male_t09_all<- map(.x = 1:5,~qr_key_se_male_t09[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
+qr_key_se_male_t01_all<- map(.x = 1:5,~qr_key_se_male_t01[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_male_t03_all<- map(.x = 1:5,~qr_key_se_male_t03[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_male_t05_all<- map(.x = 1:5,~qr_key_se_male_t05[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_male_t07_all<- map(.x = 1:5,~qr_key_se_male_t07[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_male_t09_all<- map(.x = 1:5,~qr_key_se_male_t09[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
 
 
 
@@ -398,11 +398,11 @@ qr_key_female_ts_09 <- map(.x =c(0.1, 0.3, 0.5, 0.7, 0.9),~f_rq_results(dataset 
 qr_key_se_female_t09 <- map(qr_key_female_ts_09,~summary.rq(.x, se ='boot'))
 
 
-qr_key_se_female_t01_all<- map(.x = 1:5,~qr_key_se_female_t01[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_female_t03_all<- map(.x = 1:5,~qr_key_se_female_t03[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_female_t05_all<- map(.x = 1:5,~qr_key_se_female_t05[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_female_t07_all<- map(.x = 1:5,~qr_key_se_female_t07[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
-qr_key_se_female_t09_all<- map(.x = 1:5,~qr_key_se_female_t09[[.x]]$coefficients[c(2, 64, 126, 188, 250)])
+qr_key_se_female_t01_all<- map(.x = 1:5,~qr_key_se_female_t01[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_female_t03_all<- map(.x = 1:5,~qr_key_se_female_t03[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_female_t05_all<- map(.x = 1:5,~qr_key_se_female_t05[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_female_t07_all<- map(.x = 1:5,~qr_key_se_female_t07[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
+qr_key_se_female_t09_all<- map(.x = 1:5,~qr_key_se_female_t09[[.x]]$coefficients[c(2, 62, 122, 182, 242)])
 
 
 

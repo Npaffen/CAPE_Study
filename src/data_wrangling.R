@@ -23,8 +23,8 @@ total_income_gross <- tibble(mergeid = data2$mergeid%>% unname(), ytotg = data2$
 # do not need controls due to unavaiabillity. Mention in paper!
 
 #filter for countrys used in the paper
-country_code <- c(11,23,18,17,12,19,30,16,14,13,15)
-country_names <-c('Austria', 'Belgium', 'Denmark', 'France', 'Germany', 'Greece', 'Ireland', 'Italy', 'Netherlands', 'Sweden', 'Spain')
+country_code <- c(11,23,18,17,12,19,16,14,13,15)
+country_names <-c('Austria', 'Belgium', 'Denmark', 'France', 'Germany', 'Greece', 'Italy', 'Netherlands', 'Spain', 'Sweden')
 
 
 names(gdp_1990)==names(pop)
@@ -44,7 +44,7 @@ gdp_1990_head <-  map(.x = 2:length(gdp_1990_scale), ~gdp_1990_scale[,.x]/pop[,.
                        new = names(gdp_1990_scale[2:length(gdp_1990_scale)])) %>%
   mutate(Country = gdp_1990$Country) %>%
   arrange(Country) %>%
-  filter(Country %in% c(country_names,'Ireland')) %>%
+  filter(Country %in% c(country_names)) %>%
   arrange(Country)%>%
   mutate(Country = country_names) %>%
   rename(country_name = Country ) %>%
@@ -59,12 +59,12 @@ gdp_1990_head <-  map(.x = 2:length(gdp_1990_scale), ~gdp_1990_scale[,.x]/pop[,.
 
 
 #calculate the mean year of the first cohort potentially affected in germany
-cohort_yr_mean_ger <- floor(mean(c(1941, 1934, 1947, 1943, 1953, 1953, 1953, 1953, 1955, 1949))) 
+cohort_yr_mean_ger <- floor(mean(c(1941, 1934, 1947, 1943, 1953, 1953, 1953, 1955, 1949))) 
 #some help vectors for the incoming dataset mutation. All data can be retrieved from the paper
-crit_year <- c(1947,1969,1957,1953,cohort_yr_mean_ger,1958,1958,1949,1959,1947,1947)
-ycomp_reform <- c(9,12,9,10,9,9,9,9,10,8,9)
-ycomp_old <- c(8,8,7,8,8,6,8,5,9,6,8)
-y_till_market <- c(14,14,14,14,14,12,14,11,15,12,14)
+crit_year <- c(1947,1969,1957,1953,cohort_yr_mean_ger,1963,1949,1959,1957,1950)
+ycomp_reform <- c(9,12,9,10,9,9,9,10,8,9)
+ycomp_old <- c(8,8,7,8,8,6,5,9,6,8)
+y_till_market <- c(14,14,14,14,14,12,11,15,12,14)
 
 
 mutation_helper <- tibble(country = country_code, crit_year = crit_year,ycomp_reform,ycomp_old,y_till_market) %>%
